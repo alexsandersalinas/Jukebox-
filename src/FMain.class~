@@ -1,0 +1,264 @@
+' Gambas class file
+
+
+Static Public icontador As Integer = 0
+Static Public iView As Integer = 0
+Static Public iViewGif As Integer = 0
+Static Public iViewMP3 As Integer = 0
+'Static bWindows As Boolean = False
+Static Public hProcess As Process 'varProcess is a Process variable for SHELL command
+Static Public iNrPlayingSong As Integer 'public var to hold the nr of playing song
+Static Public Dinheiro As Float
+Static Public MP3Run As Boolean = False
+Static Public ValorDoCredito As Float = 1.00
+
+
+
+Public Sub Terminate()
+
+    'when FMain closes terminate running process
+    If Not IsNull(FMain.hProcess) Then
+      If FMain.hProcess.State = 1 Then 
+      'Print #hProcess, "q" 'quit mpg123
+        FMain.hProcess.Kill 'kill process in any way
+       FMain.bMP3Run = False
+        
+      Endif 
+    Endif
+
+End
+
+
+Public Sub Button1_Click()
+
+  iView = iView + 1
+  iViewGif = iViewGif + 1
+
+  lblMp3Title.Text = "0000"
+  lblOutput.Text = "1111"
+
+  Timer1.Start()
+  Timer2.Start()
+  Timer3.Start()
+  
+End
+
+Public Sub Timer1_Timer()
+
+  icontador = icontador + 1
+   FMain.ProgressBar1.Value = icontador
+
+   If (FMain.ProgressBar1.Value = 100) Then
+   icontador = 0
+   Endif
+    mPicture.LoadBackground(iView)
+   
+End
+
+
+
+
+
+Public Sub Button2_Click()
+
+
+
+Dim sPath As String
+  
+  iView = 0
+  iViewGif = 0
+  
+  
+  sPath = Application.Path & "/mp3" 
+  mFiles.AddDir(sPath)
+End
+
+Public Sub Button3_Click()
+
+  Terminate()
+  FMain.Close()
+
+End
+
+Public Sub Timer2_Timer()
+  
+ mPicture.LoadGif(FMain.iViewGif)
+ FMain.iViewGif = FMain.iViewGif + 1
+
+End
+
+Public Sub Timer3_Timer()
+
+  LCDLabel1.Text = Format$(Now, "dd/mm/yyyy") & " - " & Format$(Now, "hh mm ss")    
+
+End
+
+Public Sub WaitSystem()
+  
+  'wait the system
+  FMain.Mouse = 3
+  Wait 0.05
+  FMain.Mouse = 0
+  
+  
+End
+Public Sub Process_Read()
+
+  Dim sLine As String
+  Dim iPosition1 As Integer
+  Dim iPosition2 As Integer
+  Dim sStrings As String[]
+  
+  'read a line from process output
+  Line Input #hProcess, sLine
+
+  'if sLine has got the words "Playing MPEG stream" then show as info the line
+  If InStr(sline, "Playing MPEG stream") > 0 Then
+     lblMp3Title.Text = sLine
+  Endif
+   
+  'if sLine has word "Frame" show as info the line
+  If InStr(sline, "Frame") > 0 Then lblOutput.Text = sLine
+  
+
+  
+  ' ------------ manipulate the string ex. "Playing MPEG stream 1 of 9:"
+  
+  'get the number of playing song from lblMp3Title
+'  PRINT lblMp3Title.Text
+  'find the position of word "of"
+  iPosition1 = InStr(lblMp3Title.Text, "of")
+  'find the position of word "stream"
+  iPosition2 = InStr(lblMp3Title.Text, "stream")
+  'the wanted word is between position of word stream+5 and position of word of, get this string
+  'get substring of lblMp3Title.Text, start from iPosition2 +7 and length iPosition -22
+'  PRINT Val(Mid$(lblMp3Title.Text, (iPosition2 + 7), (iPosition1 - 22))) 'get substring from "stream...of" the substring of number of playing song
+  If Not IsNull(Val(Mid$(lblMp3Title.Text, (iPosition2 + 7), (iPosition1 - 22)))) Then
+     iNrPlayingSong = CInteger(Val(Mid$(lblMp3Title.Text, (iPosition2 + 7), (iPosition1 - 22)))) 'get substring from "stream...of" the substring of number of playing song
+'# Second method to select playing song in playlist
+     If ListaPlay.Count > 0 Then ListaPlay[iNrPlayingSong - 1].Selected = True
+  Endif
+  '--------------------------------------------------------------------------
+
+'  PRINT iNrPlayingSong
+  
+'  PRINT sLine;
+
+End
+
+
+Private Sub AjustaTela()
+  
+  MovieBox1.Left = FMain.Width - 200
+  MovieBox1.Top = 0
+  
+  LCDContador.Left = FMain.Width - 350
+  LCDContador.Top = FMain.Height - 45
+  
+  LCDLabel1.Left = 10
+  LCDLabel1.Height = FMain.Height - 45
+  
+  
+    
+End
+
+
+
+Public Sub Button4_Click()
+
+  If (FMain.bMP3Run = False) Then
+    mAudio.ExecutaAudio()  
+  Endif
+  
+  
+
+End
+
+
+
+Public Sub Timer4_Timer()
+
+ Process_Read()
+
+End
+
+Public Sub Form_Open()
+
+  AjustaTela()
+
+End
+
+Public Sub Form_Resize()
+
+  AjustaTela()
+
+End
+
+Public Sub Button5_Click()
+
+  Dinheiro = Dinheiro + mMoeda.UmReal
+  AtualizaValoresTela()
+
+End
+
+Public Sub Button6_Click()
+
+    Dinheiro = Dinheiro + mMoeda.DoisReais
+    AtualizaValoresTela()
+
+End
+
+Public Sub AtualizaValoresTela()
+
+  Dim VAR As String 
+  Dim MSG As String 
+  Dim nCredito As Integer
+  VAR = CStr(Format$(Dinheiro, "$#.###,00"))
+  
+  If (Dinheiro > 0) Then
+   nCredito = (Dinheiro / ValorDoCredito)
+  Else
+   nCredito = 0
+  Endif
+  
+  
+  MSG = "AUDIO: " & nCredito & " " & VAR
+  LCDContador.Text = MSG
+  
+End
+
+Public Sub Button7_Click()
+    
+    Dinheiro = Dinheiro + mMoeda.DezReais
+    AtualizaValoresTela()
+
+End
+
+Public Sub Button9_Click()
+
+  Dinheiro = Dinheiro + mMoeda.VinteReais
+    AtualizaValoresTela()
+
+End
+
+Public Sub Button10_Click()
+
+  Dinheiro = Dinheiro + mMoeda.CinquentaReais
+    AtualizaValoresTela()
+
+End
+
+Public Sub Button11_Click()
+
+  Dinheiro = Dinheiro + mMoeda.CemReais 
+  
+    AtualizaValoresTela()
+ End
+
+Public Sub Button12_Click()
+ mAudio.VolumeUp()
+End
+
+Public Sub Button13_Click()
+  mAudio.VolumeDown()
+End

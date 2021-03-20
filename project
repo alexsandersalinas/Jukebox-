@@ -1,0 +1,11 @@
+# Gambas Project File 3.0
+# Compiled with Gambas 3.8.4
+Startup=FMain
+Version=0.0.3
+Component=gb.image
+Component=gb.qt5
+Component=gb.form
+Component=gb.qt5.webkit
+TabSize=2
+Language=pt_BR
+Packager=1

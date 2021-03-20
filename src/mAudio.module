@@ -1,0 +1,78 @@
+' Gambas module file
+
+
+
+Public Sub VolumeUp()
+
+    If Not IsNull(FMain.hProcess) Then
+      If FMain.hProcess.State = 1 Then Print FMain.hProcess, "+"
+    Endif
+
+End
+
+
+
+Public Sub VolumeDown()
+
+    If Not IsNull(FMain.hProcess) Then
+      If FMain.hProcess.State = 1 Then Print FMain.hProcess, "-"
+    Endif
+
+End
+
+Private Sub ExecutaAudio(iSequencia As Integer)
+  
+ Dim mp3Path As String
+ Dim sCommand As String  
+  FMain.iViewMP3 = FMain.iViewMP3 + 1
+
+   mp3Path = LoadMp3(FMain.iViewMP3)
+   
+    'terminate any other proccess
+   FMain.Terminate()
+   
+   If (mp3Path <> "") Then
+    'format sting command
+    'sCommand = "mpg123 -vC@ " & mp3 'play in verbose mode (v), interactive (C), and load a playlist (@)
+    sCommand = "mpg123 -vC " & mp3Path 
+    
+    'executa o command
+    FMain.hProcess = Shell sCommand For Input Output As "Process"
+   
+    FMain.bMP3Run = True
+   
+     'Process_Read
+   Endif 
+
+   FMain.Timer4.Start()
+End
+
+
+Private Sub LoadMp3(pView As Integer) As String
+
+
+  Dim sPath As String = ""
+  Dim File As String = ""
+  Dim nFile As String = ""
+  Dim iCont2 As Integer = 0
+
+  FMain.WaitSystem()
+  
+  'sPath = "/tmp/mp3/LanaDelRey/" 
+  sPath = Application.Path & "/mp3/LanaDelRey/" 
+  iCont2 = 1
+  
+      For Each File In Dir(sPath, "*.mp3").Sort()
+        If (pView = iCont2) Then    
+             nFile = sPath & Replace(File, " ", "\\ ")
+            Break
+        Endif
+       
+       iCont2 = iCont2 + 1
+      Next
+   
+   
+   Return nFile
+   
+ End
+

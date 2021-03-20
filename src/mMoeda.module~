@@ -1,0 +1,8 @@
+' Gambas module file
+
+Static Public UmReal As Integer = 1
+Static Public DoisReais As Integer = 2
+Static Public CincoReais As Integer = 5
+Static Public DezReais As Integer = 10
+Static Public CinquentaReais As Integer = 50
+Static Public CemReais As Integer = 100

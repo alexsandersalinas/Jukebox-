@@ -1,0 +1,87 @@
+' Gambas module file
+
+Public Sub AddDir(dir As String)
+
+  Dim fileName As String
+   Dim fileName2 As String
+  Dim sFileExtension As String
+  Dim sSub As String
+  Dim sSub2 As String
+  
+  For Each fileName In Dir(dir)
+     
+     sSub = dir & "/" & fileName
+     
+     For Each fileName2 In Dir(sSub, "*.jpg").Sort()
+       
+       sSub2 = sSub & "/" & fileName2
+       If (fileName2 <> "") Then
+          addListView(sSub2, fileName)
+          Break
+       Endif      
+     Next
+  Next
+
+End
+
+Public Sub LoadDir(pView As Integer) As String
+
+  Dim sPath As String = ""
+  Dim File As String = ""
+  Dim nFile As String = ""
+  Dim iCont As Integer = 0
+  
+  sPath = Application.Path & "/images/" 
+  iCont = 1
+  
+  For Each File In Dir(sPath, "*.jpg").Sort()
+    If (pView = iCont) Then    
+      
+        nFile = sPath & File
+    
+        FMain.Label1.Text = CStr(iCont)
+        FMain.Label2.Text = CStr(pView & " -- " & nFile)      
+        Break
+    Endif
+   
+   iCont = iCont + 1
+  Next
+   
+   Return nFile
+   
+ End
+Public Sub LoadDirGif(pView As Integer) As String
+
+  Dim sPath As String = ""
+  Dim File As String = ""
+  Dim nFile As String = ""
+  Dim iCont2 As Integer = 0
+  
+  sPath = Application.Path & "/images/gif/" 
+  iCont2 = 1
+  
+  For Each File In Dir(sPath, "*.gif").Sort()
+    If (pView = iCont2) Then    
+         nFile = sPath & File
+ 
+        Break
+    Endif
+   
+   iCont2 = iCont2 + 1
+  Next
+   Return nFile
+   
+ End
+
+Private Sub addListView(imgPath As String, info As String)
+  
+ Dim p As New Picture
+  p = mPicture.GetImagem(imgPath)
+  p.Resize(15, 15)
+  p.Image.Stretch(15, 15)
+ ' p.Fill
+  
+  FMain.IconView1.Add(info, info, p)
+  'IconView1.IconSize
+  
+End

@@ -1,0 +1,9 @@
+' Gambas class file
+
+
+Public Sub ToggleButton1_Click()
+
+WebView1.Url = "/home/alexsander/Downloads/HTML5/Player.html"
+  
+
+End

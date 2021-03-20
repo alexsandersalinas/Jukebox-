@@ -1,0 +1,52 @@
+' Gambas module file
+
+
+
+
+ 
+ Public Sub LoadGif(view As Integer)
+  Dim img2 As String
+
+  img2 = mFiles.LoadDirGif(view)
+' Message.Info(img2)
+ 
+   If (img2 <> "") Then
+    
+    FMain.MovieBox2.Path = img2
+    FMain.MovieBox2.Rewind
+    FMain.MovieBox2.Playing = True 
+   Endif
+    
+  
+End
+
+
+Public Sub LoadBackground(view As Integer)
+  
+   Dim img As String  
+   img = mFiles.LoadDir(view)
+   
+   'Message.Info(img)
+   If (img <> "") Then
+    
+    FMain.PictureBox1.Picture = GetImagem(img)
+      FMain.PictureBox1.Width = FMain.Width
+      FMain.PictureBox1.Height = FMain.Height - 200
+      FMain.PictureBox1.Top = 0
+      FMain.PictureBox1.Left = 0
+    
+      
+  FMain.PictureBox1.Stretch = True  
+
+    
+    FMain.PictureBox1.Show() 
+   Endif
+    
+  
+End
+
+Public Sub GetImagem(img As String) As Picture
+  
+  Return Picture.Load(img)
+  
+End

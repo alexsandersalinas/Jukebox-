@@ -1,1 +1,1 @@
- Jukebox teste desenvolvido em Gambas
+Jukebox desenvolvido em Gambas para Linux

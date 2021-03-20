@@ -1,0 +1,150 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,122,69)
+  Background = Color.Background
+  Expand = True
+  { !PictureBox1 PictureBox
+    MoveScaled(28,41,38,19)
+    #Public = True
+    Picture = Picture["images/black_background_texture_86812_1024x768.jpg"]
+  }
+  { !HSplit1 HSplit
+    MoveScaled(1,1,120,50)
+    #Public = True
+    { Panel2 Panel
+      MoveScaled(2,2,117,47)
+      { Button1 Button
+        MoveScaled(2,24,6,4)
+        Text = ("ANIMACAO")
+      }
+      { Button2 Button
+        MoveScaled(2,20,6,4)
+      }
+      { Button3 Button
+        MoveScaled(2,32,6,4)
+        Text = ("FIM")
+      }
+      { Button4 Button
+        MoveScaled(2,28,6,4)
+        Text = ("PLAY")
+      }
+      { Button12 Button
+        MoveScaled(9,20,6,4)
+        Text = ("VOLUME +")
+      }
+      { Button13 Button
+        MoveScaled(9,24,6,4)
+        Text = ("VOLUME -")
+      }
+      { Button5 Button
+        MoveScaled(2,36,6,4)
+        Text = ("1")
+      }
+      { Button6 Button
+        MoveScaled(2,40,6,4)
+        Text = ("2")
+      }
+      { Button7 Button
+        MoveScaled(2,44,6,4)
+        Text = ("5")
+      }
+      { Button8 Button
+        MoveScaled(2,48,6,4)
+        Text = ("10")
+      }
+      { Button9 Button
+        MoveScaled(9,36,7,4)
+        Text = ("20")
+      }
+      { Button10 Button
+        MoveScaled(9,40,7,4)
+        Text = ("50")
+      }
+      { Button11 Button
+        MoveScaled(9,44,7,4)
+        Text = ("100")
+      }
+      { !MovieBox1 MovieBox
+        MoveScaled(79,2,16,16)
+        #Public = True
+        Background = Color.Red
+      }
+      { !MovieBox2 MovieBox
+        MoveScaled(99,2,16,16)
+        #Public = True
+        Background = Color.Red
+      }
+      { !IconView1 IconView
+        MoveScaled(53,-3,54,54)
+        #Public = True
+        Background = Color.Black
+        Foreground = Color.Green
+        Orientation = Arrange.Horizontal
+        IconLines = 3
+        ScrollBar = Scroll.Horizontal
+      }
+    }
+  }
+  { !ProgressBar1 ProgressBar
+    MoveScaled(96,59,24,2)
+    #Public = True
+  }
+  { Timer1 #Timer
+    #MoveScaled(8,60)
+    Delay = 3600
+  }
+  { !Label2 Label
+    MoveScaled(4,15,20,4)
+    #Public = True
+    AutoResize = True
+  }
+  { !Label1 Label
+    MoveScaled(4,17,24,4)
+    #Public = True
+  }
+  { Timer2 #Timer
+    #MoveScaled(14,60)
+    Delay = 4000
+  }
+  { !LCDLabel1 LCDLabel
+    MoveScaled(54,60,35,4)
+    #Public = True
+    Font = Font["Caladea,+10"]
+    Background = Color.Black
+    HighlightColor = Color.Green
+  }
+  { Timer3 #Timer
+    #MoveScaled(21,60)
+    Delay = 100
+  }
+  { !lblMp3Title Label
+    MoveScaled(6,7,24,4)
+    #Public = True
+    Font = Font["Bold,+5"]
+    Foreground = Color.Red
+  }
+  { !lblOutput Label
+    MoveScaled(6,12,24,4)
+    #Public = True
+    Font = Font["Bold"]
+    Foreground = Color.Red
+  }
+  { Timer4 #Timer
+    #MoveScaled(1,60)
+    Delay = 100
+  }
+  { ListaPlay ListView
+    MoveScaled(63,22,25,23)
+  }
+  { !LCDContador Label
+    MoveScaled(30,61,20,4)
+    #Public = True
+    Font = Font["Noto Sans Tai Viet,Bold,+4"]
+    Foreground = Color.Green
+    AutoResize = True
+  }
+  { IconView2 IconView
+    MoveScaled(57,24,1,1)
+  }
+}

@@ -1,0 +1,21 @@
+' Gambas module file
+
+
+
+Public Sub VolumeUp()
+
+    If Not IsNull(hProcess) Then
+      If hProcess.State = 1 Then Print #hProcess, "+"
+    Endif
+
+End
+
+
+
+Public Sub VolumeDown()
+
+    If Not IsNull(hProcess) Then
+      If hProcess.State = 1 Then Print #hProcess, "-"
+    Endif
+
+End

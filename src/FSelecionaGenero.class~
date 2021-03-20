@@ -1,0 +1,15 @@
+' Gambas class file
+
+
+Public Sub Button1_Click()
+ 
+ Dim sImg As String
+ sImg = Application.Path & "/images/brick-background-1024-768-6891.jpg" 
+
+  ImageView1.Image = Image.Load(sImg)
+  'ImageView1.Resize = True
+   
+  
+  ' p.Picture = Picture.Load(sImg)
+ ' IconView1.Add(0, "teste", p)
+End
